@@ -65,7 +65,6 @@ docker run \
   --rm \
   -v $(pwd):/src \
   -u $(id -u):$(id -g) \
-  -e CXXFLAGS="-s MODULARIZE -s EXPORT_ES6" \
   emscripten/emsdk \
   emmake make gnuplot
 fi

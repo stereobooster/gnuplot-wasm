@@ -48,8 +48,6 @@ function run_gnuplot(script, options) {
   };
 }
 
-console.log("Powered by " + run_gnuplot("", "--version").stdout);
-
 // Launch gnuplot with current field values
 function launch(script, data = "") {
   // Write data file
@@ -67,21 +65,51 @@ function launch(script, data = "") {
 console.log("Powered by " + run_gnuplot("", "--version").stdout);
 
 const script = `
-# set terminal pngcairo  transparent enhanced font "arial,10" fontscale 1.0 size 600, 400 
-# set output 'simple.7.png'
-set key bmargin left horizontal Right noreverse enhanced autotitle box lt black linewidth 1.000 dashtype solid
-set samples 800, 800
-set title "Simple Plots" 
-set title  font ",20" textcolor lt -1 norotate
-set xrange [ * : * ] noreverse writeback
-set x2range [ * : * ] noreverse writeback
-set yrange [ * : * ] noreverse writeback
-set y2range [ * : * ] noreverse writeback
-set zrange [ * : * ] noreverse writeback
-set cbrange [ * : * ] noreverse writeback
-set rrange [ * : * ] noreverse writeback
-set colorbox vertical origin screen 0.9, 0.2 size screen 0.05, 0.6 front  noinvert bdefault
-NO_ANIMATION = 1
-plot [-30:20] sin(x*20)*atan(x)`;
+#!/usr/bin/gnuplot
+#
+# Plotting filledcurves with different transparencies
+#
+# AUTHOR: Hagen Wierstorf
+# VERSION: gnuplot 4.6 patchlevel 0
 
-// writeFileSync("./plot.svg", launch(script).result);
+# reset
+
+# wxt
+# set terminal wxt size 350,262 enhanced font 'Verdana,10' persist
+# png
+# set terminal pngcairo size 350,262 enhanced font 'Verdana,10'
+# set output 'different_transparency2.png'
+
+set border linewidth 1.5
+# Axes
+set style line 11 lc rgb '#808080' lt 1
+set border 3 back ls 11
+set tics nomirror out scale 0.75
+# Grid
+set style line 12 lc rgb'#808080' lt 0 lw 1
+set grid back ls 12
+
+set style fill noborder
+set style function filledcurves y1=0
+set clip two
+
+Gauss(x,mu,sigma) = 1./(sigma*sqrt(2*pi)) * exp( -(x-mu)**2 / (2*sigma**2) )
+d1(x) = Gauss(x, 0.5, 0.5)
+d2(x) = Gauss(x,  2.,  1.)
+d3(x) = Gauss(x, -1.,  2.)
+
+set xrange [-5:5]
+set yrange [0:1]
+
+unset colorbox
+
+set key title "Gaussian Distribution"
+set key top left Left reverse samplen 1
+
+set lmargin 6
+plot d1(x) fs transparent solid 0.75 lc rgb "forest-green" title 'µ= 0.5 σ=0.5', \
+     d2(x) fs transparent solid 0.50 lc rgb "gold" title 'µ= 2.0 σ=1.0', \
+     d3(x) fs transparent solid 0.25 lc rgb "red" title 'µ=-1.0 σ=2.0'
+`;
+
+writeFileSync("./plot.svg", launch(script).result);
