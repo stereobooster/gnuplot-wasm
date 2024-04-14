@@ -5,11 +5,8 @@ const SCRIPT_FILE = "script.gnuplot";
 const RESULT_FILE = "plot.svg";
 
 const instance = await gnuplotWrapper({
-  // Don't run main on page load
   noInitialRun: true,
   noFSInit: true,
-
-  // Print functions
   print: (stdout) => STDOUT.push(stdout),
   printErr: (stderr) => STDOUT.push(stderr),
 });
@@ -45,7 +42,7 @@ export function draw(script, options = {}) {
   const height = options.height || 800;
   const data = options.data || {};
 
-  if (term !== "svg") throw new Error("Only svg tem supported for now");
+  if (term !== "svg") throw new Error("Only svg term supported for now");
 
   script = `set term ${term} size ${width},${height};set output '${RESULT_FILE}'\n${script}`;
   instance.FS.writeFile(SCRIPT_FILE, script);
