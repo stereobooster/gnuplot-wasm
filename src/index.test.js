@@ -1,4 +1,6 @@
-import { draw, version } from "./index.js";
+import gnuplot from "./index.js";
+
+const { draw, version } = await gnuplot();
 
 const script = `
 #!/usr/bin/gnuplot

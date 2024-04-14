@@ -2,11 +2,21 @@
   "name": "gnuplot-wasm",
   "version": "0.0.1",
   "description": "gnuplot compiled to WASM",
+  "keywords": [
+    "gnuplot",
+    "graph",
+    "plot",
+    "diagram"
+  ],
+  "license": "MIT",
+  "repository": "stereobooster/gnuplot-wasm",
+  "author": "stereooboster",
   "type": "module",
   "main": "src/index.js",
+  "files": [
+    "src"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "stereobooster",
-  "license": "MIT"
+  }
 }
