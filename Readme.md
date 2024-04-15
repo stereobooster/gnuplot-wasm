@@ -75,3 +75,4 @@ sh build.sh
 - test in browser
 - typescript signatures
   - `--emit-tsd gnuplot.d.ts`, but it requires Typescript, which mean I need to create custom Dcoker image with node, npm, TypeScript
+- update to [gnuplot v6](https://sourceforge.net/projects/gnuplot/files/gnuplot/6.0.0/)
