@@ -22,6 +22,21 @@ See:
 - https://github.com/httptoolkit/brotli-wasm/issues/8
 - https://github.com/sapphi-red/vite-plugin-static-copy/
 
+Other:
+
+- [@hpcc-js/wasm](https://www.npmjs.com/package/@hpcc-js/wasm)
+  - they wrote special function to inline binary WASM file into textual JS file
+  - they use [fzstd](https://www.npmjs.com/package/fzstd) and [base91](https://github.com/Equim-chan/base91) to decode it later
+- [@node-rs/xxhash-wasm32-wasi](https://www.npmjs.com/package/@node-rs/xxhash-wasm32-wasi)
+  - they have `"main": "xxhash.wasi.cjs",` and ` "browser": "xxhash.wasi-browser.js",` in package.json
+  - in browser they use `import __wasmUrl from './xxhash.wasm32-wasi.wasm?url'`
+  - in node they use CJS and `let __wasmFilePath = __nodePath.join(__dirname, 'xxhash.wasm32-wasi.wasm')`
+- here [wasm-pack#1334](https://github.com/rustwasm/wasm-pack/issues/1334) they propose to use base64
+- node has experiment support for WASM modules [`--experimental-wasm-modules`](https://nodejs.org/api/esm.html#wasm-modules)
+- Bun supports [WASM modules](https://bun.sh/docs/bundler/loaders#wasm)
+- Vite supports [`?init`](https://vitejs.dev/guide/features#webassembly) for WASM
+  - plus [vite-plugin-wasm](https://github.com/Menci/vite-plugin-wasm) implements WASM modules
+
 ## TODO
 
 - make npm package
