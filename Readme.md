@@ -27,7 +27,7 @@ import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const wasmPath = require.resolve("gnuplot-wasm/src/gnuplot.wasm");
 
-const { draw, version } = await gnuplot({
+const { render } = await gnuplot({
   locateFile: () => wasmPath,
 });
 ```
