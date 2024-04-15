@@ -22,7 +22,7 @@ See:
 - https://github.com/httptoolkit/brotli-wasm/issues/8
 - https://github.com/sapphi-red/vite-plugin-static-copy/
 
-Other:
+### Other oprions
 
 - [@hpcc-js/wasm](https://www.npmjs.com/package/@hpcc-js/wasm)
   - they wrote special function to inline binary WASM file into textual JS file
@@ -36,6 +36,9 @@ Other:
 - Bun supports [WASM modules](https://bun.sh/docs/bundler/loaders#wasm)
 - Vite supports [`?init`](https://vitejs.dev/guide/features#webassembly) for WASM
   - plus [vite-plugin-wasm](https://github.com/Menci/vite-plugin-wasm) implements WASM modules
+- maybe [import-meta-resolve](https://www.npmjs.com/package/import-meta-resolve)
+  - [vite#14405](https://github.com/vitejs/vite/discussions/14405)
+  - `--experimental-import-meta-resolve`
 
 ## TODO
 
