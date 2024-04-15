@@ -12,7 +12,6 @@ const script = `
 
 const { render } = await gnuplot();
 const { svg } = render(script);
-console.log(svg);
 ```
 
 Will produce:
