@@ -1,6 +1,6 @@
 import gnuplot from "./index.js";
 
-const { draw, version } = await gnuplot();
+const { render, version } = await gnuplot();
 
 const script = `
 #!/usr/bin/gnuplot
@@ -50,7 +50,6 @@ plot d1(x) fs transparent solid 0.75 lc rgb "forest-green" title 'µ= 0.5 σ=0.5
      d3(x) fs transparent solid 0.25 lc rgb "red" title 'µ=-1.0 σ=2.0'
 `;
 
-const { exitCode, stdout, result } = draw(script);
-console.log({ exitCode, stdout, result });
-
+const { svg } = render(script);
+console.log({ svg });
 console.log(version());

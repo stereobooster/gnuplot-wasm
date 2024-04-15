@@ -38,15 +38,16 @@ export default async function init(options = {}) {
     return exec("--version").stdout;
   }
 
-  function draw(script, options = {}) {
+  function render(script, options = {}) {
     const term = options.term || "svg";
     const width = options.width || 1000;
-    const height = options.height || 800;
+    const height = options.height || 500;
+    const background = options.background || "white";
     const data = options.data || {};
 
     if (term !== "svg") throw new Error("Only svg term supported for now");
 
-    script = `set term ${term} size ${width},${height};set output '${RESULT_FILE}'\n${script}`;
+    script = `set term ${term} enhanced size ${width},${height} background rgb '${background}';set output '${RESULT_FILE}'\n${script}`;
     instance.FS.writeFile(SCRIPT_FILE, script);
     Object.entries(data).forEach(([name, content]) =>
       instance.FS.writeFile(name, content)
@@ -66,8 +67,10 @@ export default async function init(options = {}) {
       instance.FS.unlink(RESULT_FILE);
     } catch (e) {}
 
-    return { result, stdout, exitCode };
+    if (exitCode !== 0) throw new Error(stdout);
+
+    return { svg: result, stdout };
   }
 
-  return { version, draw };
+  return { version, render, exec, _gnuplot: instance };
 }

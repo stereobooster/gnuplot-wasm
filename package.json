@@ -6,7 +6,8 @@
     "gnuplot",
     "graph",
     "plot",
-    "diagram"
+    "diagram",
+    "svg"
   ],
   "license": "MIT",
   "repository": "stereobooster/gnuplot-wasm",

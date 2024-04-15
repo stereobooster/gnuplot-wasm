@@ -1,6 +1,23 @@
 # gnuplot compiled to wasm
 
-Experiment. Initial idea taken from https://github.com/CD3/gnuplot-in-the-browser
+Experiment. I took idea from [gnuplot-in-the-browser](https://github.com/CD3/gnuplot-in-the-browser) and tried to make ES6 module distributed in npm. I tried to create minimal API with single usecase in mind - generate SVG and output it as string.
+
+```js
+import gnuplot from "gnuplot-wasm";
+
+const script = `
+  set key fixed left top vertical Right noreverse enhanced autotitle box lt black linewidth 1.000 dashtype solid
+  set samples 1000, 1000
+  plot [-10:10] sin(x),atan(x),cos(atan(x))`;
+
+const { render } = await gnuplot();
+const { svg } = render(script);
+console.log(svg);
+```
+
+Will produce:
+
+![Example of generated graph](./example.svg)
 
 ## Hack for WASM in Vite
 
@@ -40,9 +57,16 @@ See:
   - [vite#14405](https://github.com/vitejs/vite/discussions/14405)
   - `--experimental-import-meta-resolve`
 
+## Build
+
+To build locally you need `docker` and `shell` (plus `tar`, `wget`):
+
+```sh
+sh build.sh
+```
+
 ## TODO
 
-- make npm package
 - smaller size
   - `-s MALLOC=emmalloc`
   - `-Os -closure 1`
