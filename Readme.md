@@ -38,7 +38,7 @@ See:
 - https://github.com/httptoolkit/brotli-wasm/issues/8
 - https://github.com/sapphi-red/vite-plugin-static-copy/
 
-### Other oprions
+### Other options
 
 - [@hpcc-js/wasm](https://www.npmjs.com/package/@hpcc-js/wasm)
   - they wrote special function to inline binary WASM file into textual JS file
