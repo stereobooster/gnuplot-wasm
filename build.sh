@@ -78,4 +78,5 @@ fi
 
 cp ${BUILD}/gnuplot-${GNUPLOT_VERSION}/src/gnuplot src/gnuplot.js
 cp ${BUILD}/gnuplot-${GNUPLOT_VERSION}/src/gnuplot.wasm src/
+node file_to_variable.js ${BUILD}/gnuplot-${GNUPLOT_VERSION}/term/js/gnuplot_svg.js src/
 # cp -r ${BUILD}/gnuplot-${GNUPLOT_VERSION}/term/js/ src/files

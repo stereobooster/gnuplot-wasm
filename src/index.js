@@ -1,9 +1,12 @@
 import gnuplotWrapper from "./gnuplot.js";
+import gnuplot_svg from "./gnuplot_svg.js";
 
 export default async function init(options = {}) {
   let STDOUT = [];
   const SCRIPT_FILE = "script.gnuplot";
   const RESULT_FILE = "plot.svg";
+  const SVG_JS_PATH = "/usr/local/share/gnuplot/5.4/js/";
+  const SVG_JS_FILE = "gnuplot_svg.js";
 
   const instance = await gnuplotWrapper({
     noInitialRun: true,
@@ -49,6 +52,8 @@ export default async function init(options = {}) {
 
     script = `set term ${term} enhanced size ${width},${height} background rgb '${background}';set output '${RESULT_FILE}'\n${script}`;
     instance.FS.writeFile(SCRIPT_FILE, script);
+    instance.FS.mkdirTree(SVG_JS_PATH);
+    instance.FS.writeFile(SVG_JS_PATH + SVG_JS_FILE, gnuplot_svg);
     Object.entries(data).forEach(([name, content]) =>
       instance.FS.writeFile(name, content)
     );
@@ -65,6 +70,7 @@ export default async function init(options = {}) {
       Object.keys(data).forEach((name) => instance.FS.unlink(name));
       instance.FS.unlink(SCRIPT_FILE);
       instance.FS.unlink(RESULT_FILE);
+      instance.FS.unlink(SVG_JS_PATH + SVG_JS_FILE);
     } catch (e) {}
 
     if (exitCode !== 0) throw new Error(stdout);
