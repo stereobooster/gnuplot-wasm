@@ -11,7 +11,7 @@ mkdir -p $BUILD
 
 cd $BUILD
 
-GNUPLOT_VERSION="5.4.0"
+GNUPLOT_VERSION="6.0.2"
 if [[ ! -e gnuplot-${GNUPLOT_VERSION}.tar.gz ]]
 then
   wget https://sourceforge.net/projects/gnuplot/files/gnuplot/${GNUPLOT_VERSION}/gnuplot-${GNUPLOT_VERSION}.tar.gz/download
@@ -65,6 +65,7 @@ docker run \
   --rm \
   -v $(pwd):/src \
   -u $(id -u):$(id -g) \
+  -e AM_LDFLAGS="--embed-file ../term/js@/usr/local/share/gnuplot/${GNUPLOT_VERSION%.*}/js" \
   emscripten/emsdk \
   emmake make gnuplot
 fi
